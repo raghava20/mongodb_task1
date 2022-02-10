@@ -37,4 +37,4 @@ db.collection.find({ "$or": [{product_color: "indigo" },{product_price: 492.00 }
 
 10.Delete the products which product price value are same
 
-db.collection.aggregate([ {"$group": {"_id": {product_price: "$product_price"},total: {$sum: 1 } } },{$match: {total: 2 } }]).deleteMany()
+ db.collection.aggregate([   {     "$group": {       "_id": {         product_price: "$product_price"       },       total: {         $sum: 1       }     }   },   {     $match: {       total: {         $gt: 1       }     }   } ]).map(val=>  db.admin.deleteMany({"product_price": val._id.product_price}))
